@@ -44,7 +44,7 @@ public class DbSql {
     }
     public void tilmeldFag(int stdnr, int fagnr) throws Exception {
         try {
-            String sql = "INSERT INTO stud_fag (stdnr, fagnr) VALUES (?, ?)";
+            String sql = "INSERT INTO studfag (stdnr, fagnr) VALUES (?, ?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, stdnr);
             stmt.setInt(2, fagnr);
