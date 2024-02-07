@@ -3,7 +3,6 @@ import java.util.ArrayList;
 public class Fag {
     private int fagnr;
     private String fagNavn;
-    private ArrayList<Studerende> klasseListe = new ArrayList<>();
 
     public Fag() {
     }
@@ -16,7 +15,6 @@ public class Fag {
     public Fag(int fagnr, String fagNavn, ArrayList<Studerende> klasseListe) {
         this.fagnr = fagnr;
         this.fagNavn = fagNavn;
-        this.klasseListe = klasseListe;
     }
 
     public int getFagnr() {
@@ -35,20 +33,11 @@ public class Fag {
         this.fagNavn = fagNavn;
     }
 
-    public ArrayList<Studerende> getKlasseListe() {
-        return klasseListe;
-    }
-
-    public void setKlasseListe(ArrayList<Studerende> klasseListe) {
-        this.klasseListe = klasseListe;
-    }
-
     @Override
     public String toString() {
         return "Fag{" +
                 "fagnr=" + fagnr +
                 ", fagNavn='" + fagNavn + '\'' +
-                ", klasseListe=" + klasseListe +
                 '}';
     }
 }

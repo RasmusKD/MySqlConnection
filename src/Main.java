@@ -3,7 +3,7 @@ public class Main {
         try {
             DbSql dbSql = new DbSql();
             UseCase useCase = new UseCase(dbSql);
-            Studerende studerende = useCase.hentStamoplysninger(1);
+            Studerende studerende = useCase.hentStamoplysninger(2);
             System.out.println(studerende);
         } catch (Exception e) {
             e.printStackTrace();

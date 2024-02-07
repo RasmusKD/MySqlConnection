@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DbSql {
     Connection connection;
@@ -56,22 +57,39 @@ public class DbSql {
 
     public Studerende hentStamoplysninger(int stdnr) throws SQLException {
         Studerende studerende = null;
-        String sql = "SELECT * FROM studerende WHERE stdnr = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, stdnr);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
+        String sqlStuderende = "SELECT * FROM studerende WHERE stdnr = ?";
+        PreparedStatement stmtStuderende = connection.prepareStatement(sqlStuderende);
+        stmtStuderende.setInt(1, stdnr);
+        ResultSet rsStuderende = stmtStuderende.executeQuery();
+        if (rsStuderende.next()) {
             studerende = new Studerende();
-            studerende.setStdnr(rs.getInt("stdnr"));
-            studerende.setFnavn(rs.getString("fnavn"));
-            studerende.setEnavn(rs.getString("enavn"));
-            studerende.setAdresse(rs.getString("adr"));
-            studerende.setPostnr(rs.getString("postnr"));
-            studerende.setMobil(rs.getString("mobil"));
-            studerende.setKlasse(rs.getString("klasse").charAt(0));
+            studerende.setStdnr(rsStuderende.getInt("stdnr"));
+            studerende.setFnavn(rsStuderende.getString("fnavn"));
+            studerende.setEnavn(rsStuderende.getString("enavn"));
+            studerende.setAdresse(rsStuderende.getString("adr"));
+            studerende.setPostnr(rsStuderende.getString("postnr"));
+            studerende.setMobil(rsStuderende.getString("mobil"));
+            studerende.setKlasse(rsStuderende.getString("klasse").charAt(0));
+
+            ArrayList<Fag> tilmeldteFag = new ArrayList<>();
+            String sqlFag = "SELECT f.fagnr, f.fagNavn FROM fag f JOIN studfag sf ON f.fagnr = sf.fagnr WHERE sf.stdnr = ?";
+            PreparedStatement stmtFag = connection.prepareStatement(sqlFag);
+            stmtFag.setInt(1, stdnr);
+            ResultSet rsFag = stmtFag.executeQuery();
+            while (rsFag.next()) {
+                Fag fag = new Fag();
+                fag.setFagnr(rsFag.getInt("fagnr"));
+                fag.setFagNavn(rsFag.getString("fagNavn"));
+                tilmeldteFag.add(fag);
+            }
+            studerende.setTilmeldteFag(tilmeldteFag);
+
+            rsFag.close();
+            stmtFag.close();
         }
-        rs.close();
-        stmt.close();
+        rsStuderende.close();
+        stmtStuderende.close();
         return studerende;
     }
+
 }
