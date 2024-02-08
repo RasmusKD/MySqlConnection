@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class DbSql {
     Connection connection;
-    DbSql() throws SQLException {
+    DbSql() {
         connection = null;
         Statement stmt = null;
         try {
@@ -44,7 +44,7 @@ public class DbSql {
     }
     public void tilmeldFag(int stdnr, int fagnr) throws Exception {
         try {
-            String sql = "INSERT INTO studfag (stdnr, fagnr) VALUES (?, ?)";
+            String sql = "INSERT INTO studfag (stdnr, fagnr, kar) VALUES (?, ?, NULL)";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setInt(1, stdnr);
             stmt.setInt(2, fagnr);
@@ -54,6 +54,7 @@ public class DbSql {
             throw new Exception(e.getMessage());
         }
     }
+
 
     public Studerende hentStamoplysninger(int stdnr) throws SQLException {
         Studerende studerende = null;
