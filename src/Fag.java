@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Fag {
     private int fagnr;
     private String fagNavn;
@@ -8,11 +6,6 @@ public class Fag {
     }
 
     public Fag(int fagnr, String fagNavn) {
-        this.fagnr = fagnr;
-        this.fagNavn = fagNavn;
-    }
-
-    public Fag(int fagnr, String fagNavn, ArrayList<Studerende> klasseListe) {
         this.fagnr = fagnr;
         this.fagNavn = fagNavn;
     }
